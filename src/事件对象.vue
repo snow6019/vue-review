@@ -14,7 +14,7 @@ export default {
         },
         fn2(a,e) {
             console.log(a,e);
-            e.preventDefault;
+            e.preventDefault();
         }
     }
 }

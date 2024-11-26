@@ -1,37 +1,29 @@
 <template>
     <div>
-        // 事件修饰符 阻止默认行为
-        <a @click.prevent="fn" href="https://www.itcast.cn">123</a>;
-        // 按键修饰符 阻止冒泡行为
-        <div class="father" @click="fn2">
-            <div class="son" @click="fn1"></div>
-        </div>
+        <div class="k1" v-if="key">k1</div>
+        <div class="k2" v-show="key">k2</div>
+        <button @click="change">开闭</button>
     </div>
 </template>
 <script>
-export default {
-    methods:{
-        fn(){
-            console.log("123");
+    export default {
+        data(){
+            return {
+                key: true
+            }
         },
-        fn1(){
-            console.log("fn1");
-        },
-        fn2(){
-            console.log("fn2");
+        methods:{
+            change(){
+                this.key = !this.key
+            }
         }
     }
-}
 </script>
-<style>
-    .father{
-        width: 400px;
-        height: 400px;
-        background-color: black;
-    }
-    .son{
+<style scoped>
+    .k1,.k2{
+        margin: 10px;
         width: 200px;
         height: 200px;
-        background-color: pink;
+        background-color: skyblue;
     }
 </style>
