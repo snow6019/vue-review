@@ -4,7 +4,7 @@
         <a @click.prevent="fn" href="https://www.itcast.cn">123</a>;
         // 按键修饰符 阻止冒泡行为
         <div class="father" @click="fn1">
-            <div class="son" @click="fn2"></div>
+            <div class="son" @click.stop="fn2"></div>
         </div>
     </div>
 </template>
