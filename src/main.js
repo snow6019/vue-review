@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import App from './修饰符.vue'
+import App from './style操作.vue'
 
 Vue.config.productionTip = false
 
