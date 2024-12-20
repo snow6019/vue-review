@@ -1,38 +1,102 @@
 <template>
-    <div>
-        <p v-for="(item,index) in goods" :key="index">{{item.name}} 库存:{{item.num}}</p>
-        <!-- <cpt-3 v-for="item in goods" :key="item.id" :id="item.id" :name="item.name" :price="item.price" :sale="item.sale" :num="item.num" @buy="buy"></cpt-3> -->
-        <cptt-3 v-for="item in goods" :key="item.id" :item="item"></cptt-3>
-    </div>
+  <section class="todoapp">
+
+    <!-- 头部：输入框 -->
+    <header class="header">
+      <h1>todos</h1>
+      <input class="new-todo" placeholder="输入新计划" autofocus v-model.trim="planInfo" @keydown.enter="addTodo">
+    </header>
+
+
+    <!-- 列表： -->
+
+    <section class="main">
+      <input id="toggle-all" class="toggle-all" type="checkbox" v-model="ck">
+      <label for="toggle-all">Mark all as complete</label>
+      <ul class="todo-list">
+          
+          <todo v-for="item in todoList" :key="item.id" :item="item" @del="del"></todo>
+
+      </ul>
+    </section>
+    
+
+    <!-- 底部：状态栏 -->
+    <footer class="footer">
+      <span class="todo-count">剩余<strong>{{last}}</strong>未完成 </span>
+      <ul class="filters">
+        <li>
+          <a :class="{'selected':status=='all'}" href="#/" @click="select('all')">全部</a>
+        </li>
+        <li>
+          <a :class="{'selected':status=='none'}" href="#/active" @click="select('none')">未完成</a>
+        </li>
+        <li>
+          <a :class="{'selected':status=='done'}" href="#/completed" @click="select('done')">已完成</a>
+        </li>
+      </ul>
+      <button class="clear-completed" @click="clear">清除已完成</button>
+    </footer>
+
+
+  </section>
 </template>
-</template>
+
 <script>
-import cpt3 from './components/cpt-3.vue'
-import cptt3 from './components/cptt-3.vue'
+import './todos.css'
+import todo from './components/todo.vue'
 export default {
-    data(){
-        return {
-            goods:[
-                {id:12,name:'手机',price:1000,sale:8,num:10},
-                {id:23,name:'电脑',price:2000,sale:8,num:10},
-                {id:34,name:'鼠标',price:3000,sale:8,num:10},
-                {id:45,name:'键盘',price:4000,sale:8,num:10},
-                {id:53,name:'耳机',price:5000,sale:8,num:10},
-            ]
-        }
+  data() {
+    return {
+      planInfo: '',
+      todoList:JSON.parse(localStorage.getItem('todos'))||[],
+      status:''
+    }
+  },
+  components: {
+    todo
+  },
+  methods:{
+    addTodo(){
+      if(this.planInfo==='') return
+      this.todoList.push({id:this.todoList.length+1,name:this.planInfo,isDone:false})
+      this.planInfo=''
     },
-    components:{
-        cpt3,
-        cptt3
+    del(id){
+      this.todoList.splice(this.todoList.findIndex(item=>item.id == id),1)
+    },
+    clear(){
+      this.todoList = this.todoList.filter(ele=>ele.isDone==false)
+    },
+    select(status){
+        this.status = status;
     }
-    ,methods:{
-        buy(id){
-            let index = this.goods.findIndex(item=>item.id===id)
-            this.goods[index].num--
-        }
+  },
+  computed:{
+    last(){
+      return this.todoList.filter(ele=>ele.isDone==false).length
+    },
+    //大小选
+    ck:{
+      get(){
+        return this.todoList.every(ele=>ele.isDone==true)
+      },
+      set(val){
+        this.todoList.forEach(ele=>ele.isDone=val)
+      }
     }
+  },
+  watch:{
+    todoList:{
+      deep:true,
+      handler(){
+        localStorage.setItem('todos',JSON.stringify(this.todoList))
+      }
+    }
+  }
 }
 </script>
-<style scoped>
+
+<style>
 
 </style>
