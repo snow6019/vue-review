@@ -15,7 +15,7 @@
       <label for="toggle-all">Mark all as complete</label>
       <ul class="todo-list">
           
-          <todo v-for="item in todoList" :key="item.id" :item="item" @del="del"></todo>
+          <todo v-for="item in arr" :key="item.id" :item="item" @del="del"></todo>
 
       </ul>
     </section>
@@ -26,13 +26,13 @@
       <span class="todo-count">剩余<strong>{{last}}</strong>未完成 </span>
       <ul class="filters">
         <li>
-          <a :class="{'selected':status=='all'}" href="#/" @click="select('all')">全部</a>
+          <a :class="{'selected':num==1}" href="#/" @click="select(1)">全部</a>
         </li>
         <li>
-          <a :class="{'selected':status=='none'}" href="#/active" @click="select('none')">未完成</a>
+          <a :class="{'selected':num==2}" href="#/active" @click="select(2)">未完成</a>
         </li>
         <li>
-          <a :class="{'selected':status=='done'}" href="#/completed" @click="select('done')">已完成</a>
+          <a :class="{'selected':num==3}" href="#/completed" @click="select(3)">已完成</a>
         </li>
       </ul>
       <button class="clear-completed" @click="clear">清除已完成</button>
@@ -50,7 +50,8 @@ export default {
     return {
       planInfo: '',
       todoList:JSON.parse(localStorage.getItem('todos'))||[],
-      status:''
+      arr:JSON.parse(localStorage.getItem('todos'))||[],
+      num:1
     }
   },
   components: {
@@ -68,8 +69,16 @@ export default {
     clear(){
       this.todoList = this.todoList.filter(ele=>ele.isDone==false)
     },
-    select(status){
-        this.status = status;
+    select(a){
+        this.num = a
+        console.log(this.num)
+        if(this.num == 1){
+          this.arr=this.todoList
+        } else if(this.num == 2){
+          this.arr=this.todoList.filter(ele=>ele.isDone==false)
+        } else if(this.num == 3){
+          this.arr=this.todoList.filter(ele=>ele.isDone==true)
+        }
     }
   },
   computed:{
