@@ -10,7 +10,8 @@
     <!-- <cpt-5></cpt-5> -->
     <!-- <cpt-6></cpt-6> -->
     <!-- <cpt-7></cpt-7> -->
-    <cpt7dt></cpt7dt>
+    <cpt7dt v-red></cpt7dt>
+    <cpt8></cpt8>
   </div>
 </template>
 
@@ -23,6 +24,7 @@ import cpt5 from './components/04-cpt.vue'
 import cpt6 from './components/05-cpt.vue'
 import cpt7 from './components/06-cpt'
 import cpt7dt from './components/06-cpt-dt'
+import cpt8 from './components/07-cpt'
 export default {
   data(){
     return{
@@ -46,6 +48,7 @@ export default {
     cpt6,
     cpt7,
     cpt7dt,
+    cpt8
   }
 }
 </script>
