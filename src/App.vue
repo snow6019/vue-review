@@ -1,57 +1,50 @@
 <template>
   <div>
-    <!-- <cpt-1></cpt-1> -->
-    <!-- 父级库存:{{num}} -->
-    <!-- <cpt-2 :value="num" @input="fn"></cpt-2> -->
-    <!-- <cpt-2 v-model="num"></cpt-2> -->
-    <!-- <cpt-3 ref="cpt3"></cpt-3> -->
-    <!-- <button @click="get">获取组件对象</button> -->
-    <!-- <cpt-4></cpt-4> -->
-    <!-- <cpt-5></cpt-5> -->
-    <!-- <cpt-6></cpt-6> -->
-    <!-- <cpt-7></cpt-7> -->
-    <cpt7dt v-red></cpt7dt>
-    <cpt8></cpt8>
+    <div class="footer_wrap">
+      <!-- <a href="#/find">发现音乐</a>
+      <a href="#/my">我的音乐</a>
+      <a href="#/friend">朋友</a> -->
+      <router-link to="/find">发现音乐</router-link>
+      <router-link to="/my">我的音乐</router-link>
+      <!-- <router-link to="/friend">朋友</router-link> -->
+      <router-link to="/friend?name=小王">朋友-小王</router-link>
+      <router-link to="/friend?name=小张">朋友-小张</router-link>
+      <router-link to="/friend/小陈">朋友-小陈</router-link>
+    </div>
+    <div class="top">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
-import cpt1 from './components/v-model原理.vue'
-import cpt2 from './components/01-cpt.vue'
-import cpt3 from './components/02-cpt.vue'
-import cpt4 from './components/03-cpt.vue'
-import cpt5 from './components/04-cpt.vue'
-import cpt6 from './components/05-cpt.vue'
-import cpt7 from './components/06-cpt'
-import cpt7dt from './components/06-cpt-dt'
-import cpt8 from './components/07-cpt'
-export default {
-  data(){
-    return{
-      num: 99
-    }
-  },
-  methods:{
-    fn(a){
-      this.num += a;
-    },
-    get(){
-      this.$refs.cpt3.fn();
-    }
-  },
-  components:{
-    cpt1,
-    cpt2,
-    cpt3,
-    cpt4,
-    cpt5,
-    cpt6,
-    cpt7,
-    cpt7dt,
-    cpt8
-  }
-}
+export default {};
 </script>
 
-<style>
+<style scoped>
+.footer_wrap {
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  width: 100%;
+  text-align: center;
+  background-color: #333;
+  color: #ccc;
+}
+.footer_wrap a {
+  flex: 1;
+  text-decoration: none;
+  padding: 20px 0;
+  line-height: 20px;
+  background-color: #333;
+  color: #ccc;
+  border: 1px solid black;
+}
+.footer_wrap a:hover {
+  background-color: #555;
+}
+.top {
+  padding-top: 62px;
+}
 </style>
